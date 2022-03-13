@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "AAtrONv6tRE+yPfEUBs+xO1yQw3mFk3Ptas2ivR0xlCkDuyD0+mGz7Con2bi6PAg3yDkncx2UuIIAEhvhWu/pQ==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\Agata\\Documents\\TSD\\TSD\\02-LINQ\\tsd2022-main\\02-linq\\TSD.Linq.Task1.Lib\\TSD.Linq.Task1.Lib.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Agata\\.nuget\\packages\\newtonsoft.json\\12.0.3\\newtonsoft.json.12.0.3.nupkg.sha512"
+  ],
+  "logs": []
+}
