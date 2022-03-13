@@ -70,11 +70,11 @@ namespace TSD.Linq.Task1.App
             DateTime dateEnd = dateStart.AddDays(93);
             var daysbeetween = (date2 - dateStart).Days;
             var prices = new List<GoldPrice>();
-            // Console.Write($"Data:{daysbeetween}\n ");
+           
             while (daysbeetween >= 93)
             {
 
-                //Console.Write($"{dateStart}\n");
+        
                 List<GoldPrice> pricesPart = goldenClient.GetGoldPrices(dateStart, dateEnd).GetAwaiter().GetResult();
                 List<GoldPrice> pricesPartSort = (from pricePart in pricesPart
                                                   orderby pricePart.Price descending
@@ -91,7 +91,7 @@ namespace TSD.Linq.Task1.App
                 }
 
             }
-            //Console.Write($"Data:{prices.Count}\n ");
+          
             dateStart = dateStart.AddDays(daysbeetween);
             dateEnd = dateEnd.AddDays(daysbeetween);
             List<GoldPrice> pricesPartEnd = goldenClient.GetGoldPrices(dateStart, dateEnd).GetAwaiter().GetResult();
