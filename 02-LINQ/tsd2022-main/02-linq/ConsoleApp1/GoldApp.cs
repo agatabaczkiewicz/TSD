@@ -15,8 +15,11 @@ namespace TSD.Linq.Task1.App
 
             //.WriteLine("Hello, World!");
             var goldenClient = new GoldClient();
-          //  FindTop3HighestPrice(goldenClient);
-           // FindTop3HighestPriceQuery(goldenClient);
+        //    AveragePriceQuery(goldenClient);
+           // Invest(goldenClient);
+            //InvestQuery(goldenClient);
+            //  FindTop3HighestPrice(goldenClient);
+            // FindTop3HighestPriceQuery(goldenClient);
             // FindTop3LowestPrice(goldenClient);
             //CheckIfCanEarned(goldenClient);
             //FindSecendTenOfThePricesTop3(goldenClient);
@@ -33,7 +36,7 @@ namespace TSD.Linq.Task1.App
             while (daysbeetween >= 93)
             {
 
-                
+
                 List<GoldPrice> pricesPart = goldenClient.GetGoldPrices(dateStart, dateEnd).GetAwaiter().GetResult();
                 List<GoldPrice> pricesPartSort = pricesPart.OrderByDescending(n => n.Price).Take(13).ToList();
                 foreach (GoldPrice element in pricesPartSort)
@@ -59,7 +62,7 @@ namespace TSD.Linq.Task1.App
             }
             List<GoldPrice> result = prices.OrderByDescending(n => n.Price).Take(3).ToList();
             return result;
-           
+
         }
 
         public List<GoldPrice> FindSecendTenOfThePricesTop3Query(GoldClient goldenClient)
@@ -69,11 +72,11 @@ namespace TSD.Linq.Task1.App
             DateTime dateEnd = dateStart.AddDays(93);
             var daysbeetween = (date2 - dateStart).Days;
             var prices = new List<GoldPrice>();
-           
+
             while (daysbeetween >= 93)
             {
 
-        
+
                 List<GoldPrice> pricesPart = goldenClient.GetGoldPrices(dateStart, dateEnd).GetAwaiter().GetResult();
                 List<GoldPrice> pricesPartSort = (from pricePart in pricesPart
                                                   orderby pricePart.Price descending
@@ -90,22 +93,22 @@ namespace TSD.Linq.Task1.App
                 }
 
             }
-          
+
             dateStart = dateStart.AddDays(daysbeetween);
             dateEnd = dateEnd.AddDays(daysbeetween);
             List<GoldPrice> pricesPartEnd = goldenClient.GetGoldPrices(dateStart, dateEnd).GetAwaiter().GetResult();
             List<GoldPrice> pricesPartSortEnd = (from pricePart in pricesPartEnd
-                                     orderby pricePart.Price descending
-                                     select pricePart).ToList(); 
+                                                 orderby pricePart.Price descending
+                                                 select pricePart).ToList();
             foreach (GoldPrice element in pricesPartSortEnd)
             {
                 prices.Add(element);
             }
             List<GoldPrice> result = (from price in prices
-             orderby price.Price descending
-             select price).Take(3).ToList();
+                                      orderby price.Price descending
+                                      select price).Take(3).ToList();
             return result;
-            
+
         }
 
         public List<GoldPrice> CheckIfCanEarned(GoldClient goldenClient)
@@ -119,32 +122,32 @@ namespace TSD.Linq.Task1.App
 
             List<GoldPrice> pricesBest = prices.Select(n => n).Where(n => 5 < 100 * (priceWhenBuy.Price - n.Price) / n.Price).ToList();
             return pricesBest;
-         
+
         }
 
         public List<GoldPrice> CheckIfCanEarnedQuery(GoldClient goldenClient)
         {
             DateTime date1 = new DateTime(2020, 1, 1);
             DateTime date2 = new DateTime(2020, 1, 31);
-            Console.Write($"Data:{date1 - date2}  ");
+         
             var priceWhenBuy = goldenClient.GetCurrentGoldPrice().GetAwaiter().GetResult();
             Console.Write($"Data:{priceWhenBuy.Date} Cena: {priceWhenBuy.Price}\n ");
             List<GoldPrice> prices = goldenClient.GetGoldPrices(date1, date2).GetAwaiter().GetResult();
 
-            List<GoldPrice> pricesBest = (from price in prices 
-                             where 5 < 100 * (priceWhenBuy.Price - price.Price) / price.Price
-                             select price).ToList();
+            List<GoldPrice> pricesBest = (from price in prices
+                                          where 5 < 100 * (priceWhenBuy.Price - price.Price) / price.Price
+                                          select price).ToList();
             return pricesBest;
-           
+
         }
 
-        public List<GoldPrice> FindTop3LowestPrice(GoldClient goldenClient)
+        public List<GoldPrice> FindTop3LowestPrice(GoldClient goldenClient, int howMany, DateTime date1, DateTime date2)
         {
 
-            DateTime date1 = new DateTime(2021, 1, 1);
-            DateTime date2 = new DateTime(2021, 12, 31);
+           // DateTime date1 = new DateTime(2021, 1, 1);
+           // DateTime date2 = new DateTime(2021, 12, 31);
             List<GoldPrice> prices = goldenClient.GetGoldPrices(date1, date2).GetAwaiter().GetResult();
-            Console.Write($"Data:{prices.Count}\n ");
+       
             List<GoldPrice> pricesTop3 = prices.OrderBy(n => n.Price).Take(3).ToList();
             return pricesTop3;
             //  Console.WriteLine(pricesTop3.ToString());
@@ -153,50 +156,153 @@ namespace TSD.Linq.Task1.App
 
         }
 
-        public List<GoldPrice> FindTop3HighestPrice(GoldClient goldenClient)
+        public List<GoldPrice> FindTop3HighestPrice(GoldClient goldenClient, int howMany, DateTime date1, DateTime date2)
         {
 
-            DateTime date1 = new DateTime(2021, 1, 1);
-            DateTime date2 = new DateTime(2021, 12, 31);
+           // DateTime date1 = new DateTime(2021, 1, 1);
+           // DateTime date2 = new DateTime(2021, 12, 31);
             List<GoldPrice> prices = goldenClient.GetGoldPrices(date1, date2).GetAwaiter().GetResult();
-            Console.Write($"Data:{prices.Count}\n ");
+        
             List<GoldPrice> pricesTop3 = prices.OrderByDescending(n => n.Price).Take(3).ToList();
 
             return pricesTop3;
 
         }
 
-        public List<GoldPrice> FindTop3HighestPriceQuery(GoldClient goldenClient)
+        public List<GoldPrice> FindTop3HighestPriceQuery(GoldClient goldenClient, int howMany, DateTime date1, DateTime date2)
         {
 
-            DateTime date1 = new DateTime(2021, 1, 1);
-            DateTime date2 = new DateTime(2021, 12, 31);
+           // DateTime date1 = new DateTime(2021, 1, 1);
+           // DateTime date2 = new DateTime(2021, 12, 31);
             List<GoldPrice> prices = goldenClient.GetGoldPrices(date1, date2).GetAwaiter().GetResult();
-            Console.Write($"Data:{prices.Count}\n ");
+        
             List<GoldPrice> pricesTop3 = (from price in prices
-                              orderby price.Price descending
-                              select price).Take(3).ToList();
-
-            return pricesTop3;
-    
-
-
-        }
-
-        public List<GoldPrice> FindTop3LowestPriceQuery(GoldClient goldenClient)
-        {
-
-            DateTime date1 = new DateTime(2021, 1, 1);
-            DateTime date2 = new DateTime(2021, 12, 31);
-            List<GoldPrice> prices = goldenClient.GetGoldPrices(date1, date2).GetAwaiter().GetResult();
-            Console.Write($"Data:{prices.Count}\n ");
-            List<GoldPrice> pricesTop3 = (from price in prices
-                                          orderby price.Price 
+                                          orderby price.Price descending
                                           select price).Take(3).ToList();
 
-            return pricesTop3;       
+            return pricesTop3;
+
 
 
         }
+
+        public List<GoldPrice> FindTop3LowestPriceQuery(GoldClient goldenClient, int howMany, DateTime date1, DateTime date2)
+        {
+
+           // DateTime date1 = new DateTime(2021, 1, 1);
+           // DateTime date2 = new DateTime(2021, 12, 31);
+            List<GoldPrice> prices = goldenClient.GetGoldPrices(date1, date2).GetAwaiter().GetResult();
+           
+            List<GoldPrice> pricesTop3 = (from price in prices
+                                          orderby price.Price
+                                          select price).Take(howMany).ToList();
+
+            return pricesTop3;
+
+
+        }
+
+        public Dictionary<int, double> AveragePrice(GoldClient goldenClient)
+        {
+            DateTime date1 = new DateTime(2019, 1, 1);
+            DateTime date2 = new DateTime(2019, 12, 31);
+            var result = new Dictionary<int, double>();
+            for (int i = 0; i < 3; i++)
+            {
+                List<GoldPrice> pricesAll = goldenClient.GetGoldPrices(date1, date2).GetAwaiter().GetResult();
+                var avarage = pricesAll.Average(n => n.Price);
+                result[date1.Year] = avarage;
+                date1 = date1.AddYears(1);
+                date2 = date1.AddYears(1);
+            }
+            return result;
+        }
+
+        public static void AveragePriceQuery(GoldClient goldenClient)
+        {
+            //Dictionary<int, double>
+            DateTime date1 = new DateTime(2019, 1, 1);
+            DateTime date2 = new DateTime(2019, 12, 31);
+            var result = new Dictionary<int, double>();
+            for (int i = 0; i < 3; i++)
+            {
+                List<GoldPrice> pricesAll = goldenClient.GetGoldPrices(date1, date2).GetAwaiter().GetResult();
+                var avarage = pricesAll.Average(n => n.Price);
+              
+                result[date1.Year] = avarage;
+                date1 = date1.AddYears(1);
+                date2 = date1.AddYears(1);
+            }
+            // return result;
+        }
+        
+       
+        public double Invest(GoldClient goldenClient)
+        {
+            DateTime date1 = new DateTime(2019, 1, 1);
+            DateTime date2 = new DateTime(2019, 12, 31);
+            GoldApp goldApp = new GoldApp();
+            var pricesLowList = new List<GoldPrice>();
+            var pricesHighList = new List<GoldPrice>();
+            var result = new Dictionary<string, string>();
+            for (int i = 0; i < 3; i++)
+            {
+                GoldPrice pricesHigh = goldApp.FindTop3HighestPrice(goldenClient, 1, date1, date2)[0];
+                pricesHighList.Add(pricesHigh);
+                GoldPrice pricesLow = goldApp.FindTop3LowestPrice(goldenClient, 1, date1, date2)[0];
+                pricesLowList.Add(pricesLow);
+            
+                date1 = date1.AddYears(1);
+                date2 = date1.AddYears(1);
+            }
+            DateTime date2022 = new DateTime(2022, 1, 1);
+            GoldPrice pricesHighNow = goldApp.FindTop3HighestPrice(goldenClient, 1, date2022, DateTime.Today)[0];
+            pricesHighList.Add(pricesHighNow);
+            GoldPrice pricesLowNow = goldApp.FindTop3LowestPrice(goldenClient, 1, date1, DateTime.Today)[0];
+            pricesLowList.Add(pricesHighNow);
+            var sell = pricesHighList.MaxBy(n => n.Price);
+           result["sell"] = $"{sell.Date}: {sell.Price}";
+            var buy = pricesLowList.MinBy(n => n.Price);
+            result["buy"] = $"{buy.Date}: {buy.Price}";
+            result["investment"] = $"{(sell.Price - buy.Price)/ buy.Price * 100}%";
+         
+            return (sell.Price - buy.Price) / buy.Price * 100;
+        }
+
+        public double InvestQuery(GoldClient goldenClient)
+        {
+            DateTime date1 = new DateTime(2019, 1, 1);
+            DateTime date2 = new DateTime(2019, 12, 31);
+            GoldApp goldApp = new GoldApp();
+            var pricesLowList = new List<GoldPrice>();
+            var pricesHighList = new List<GoldPrice>();
+            var result = new Dictionary<string, string>();
+            for (int i = 0; i < 3; i++)
+            {
+                GoldPrice pricesHigh = goldApp.FindTop3HighestPriceQuery(goldenClient, 1, date1, date2)[0];
+                pricesHighList.Add(pricesHigh);
+                GoldPrice pricesLow = goldApp.FindTop3LowestPriceQuery(goldenClient, 1, date1, date2)[0];
+                pricesLowList.Add(pricesLow);
+              
+                date1 = date1.AddYears(1);
+                date2 = date1.AddYears(1);
+            }
+            DateTime date2022 = new DateTime(2022, 1, 1);
+            GoldPrice pricesHighNow = goldApp.FindTop3HighestPriceQuery(goldenClient, 1, date2022, DateTime.Today)[0];
+            pricesHighList.Add(pricesHighNow);
+            GoldPrice pricesLowNow = goldApp.FindTop3LowestPriceQuery(goldenClient, 1, date1, DateTime.Today)[0];
+            pricesLowList.Add(pricesHighNow);
+            var sell = (from price in pricesHighList
+             orderby price.Price descending
+             select price).Take(1).ToList()[0];
+            result["sell"] = $"{sell.Date}: {sell.Price}";
+            var buy = (from price in pricesLowList
+             orderby price.Price
+             select price).Take(1).ToList()[0];
+            result["buy"] = $"{buy.Date}: {buy.Price}";
+            result["investment"] = $"{(sell.Price - buy.Price) / buy.Price * 100}%";
+      
+            return (sell.Price - buy.Price) / buy.Price * 100;
+        }
     }
-}
+    }

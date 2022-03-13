@@ -21,9 +21,11 @@ namespace GoldTest
 
         [Test]
         public void Test1()
-        {   
-            var result1 = goldApp.FindTop3HighestPrice(goldClient);
-            var result = goldApp.FindTop3HighestPriceQuery(goldClient);
+        {
+            DateTime date1 = new DateTime(2021, 1, 1);
+            DateTime date2 = new DateTime(2021, 12, 31);
+            var result1 = goldApp.FindTop3HighestPrice(goldClient,3, date1, date2);
+            var result = goldApp.FindTop3HighestPriceQuery(goldClient,3, date1, date2);
             Assert.AreEqual(result[0].Price, result1[0].Price);
         }
 
@@ -38,8 +40,10 @@ namespace GoldTest
         [Test]
         public void Test3()
         {
-            var result1 = goldApp.FindTop3LowestPrice(goldClient);
-            var result = goldApp.FindTop3LowestPriceQuery(goldClient);
+            DateTime date1 = new DateTime(2021, 1, 1);
+            DateTime date2 = new DateTime(2021, 12, 31);
+            var result1 = goldApp.FindTop3LowestPrice(goldClient,3,date1,date2);
+            var result = goldApp.FindTop3LowestPriceQuery(goldClient,3, date1, date2);
             Assert.AreEqual(result[0].Price, result1[0].Price);
         }
 
@@ -49,6 +53,15 @@ namespace GoldTest
             var result1 = goldApp.FindSecendTenOfThePricesTop3Query(goldClient);
             var result = goldApp.FindSecendTenOfThePricesTop3(goldClient);
             Assert.AreEqual(result[0].Price, result1[0].Price);
+        }
+
+        [Test]
+        public void Test5()
+        {
+            var result1 = goldApp.Invest(goldClient);
+            var result = goldApp.InvestQuery(goldClient);
+           // Assert.That(result, Is.EqualTo(result1).NoClip);
+            Assert.AreEqual(result, result1);
         }
     }
 }
