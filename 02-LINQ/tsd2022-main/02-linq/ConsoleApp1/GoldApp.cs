@@ -4,6 +4,9 @@ using TSD.Linq.Task1.Lib.Model;
 
 
 using System;
+using System.Xml.Serialization;
+using System.Xml.Linq;
+
 namespace TSD.Linq.Task1.App
 {
     public class GoldApp
@@ -15,8 +18,12 @@ namespace TSD.Linq.Task1.App
 
             //.WriteLine("Hello, World!");
             var goldenClient = new GoldClient();
-        //    AveragePriceQuery(goldenClient);
-           // Invest(goldenClient);
+            DateTime date1 = new DateTime(2021, 1, 1);
+            DateTime date2 = new DateTime(2021, 12, 31);
+            // SaveToXML(goldenClient, date1, date2);  
+            FromXML();
+            //    AveragePriceQuery(goldenClient);
+            // Invest(goldenClient);
             //InvestQuery(goldenClient);
             //  FindTop3HighestPrice(goldenClient);
             // FindTop3HighestPriceQuery(goldenClient);
@@ -303,6 +310,31 @@ namespace TSD.Linq.Task1.App
             result["investment"] = $"{(sell.Price - buy.Price) / buy.Price * 100}%";
       
             return (sell.Price - buy.Price) / buy.Price * 100;
+        }
+
+        public static void SaveToXML(GoldClient goldenClient , DateTime date1, DateTime date2)
+        {
+            List<GoldPrice> pricesAll = goldenClient.GetGoldPrices(date1, date2).GetAwaiter().GetResult();
+            XDocument xmlDocument = new XDocument(
+                new XDeclaration("1.0", "utf-8", "yes"),
+                new XComment("Pricesrices to XML"),
+                new XElement("Prices",
+                from price in pricesAll
+                select new XElement("GoldPrice", new XAttribute("hash", price.GetHashCode()),
+                    new XElement("Price", price.Price),
+                    new XElement("Date", price.Date))
+                ));
+            xmlDocument.Save(@"C:\Users\Agata\ListGoldPrices.xml");
+        }
+
+        public static void FromXML()
+        {
+            IEnumerable<XElement> fromXML = XDocument.Load(@"C:\Users\Agata\ListGoldPrices.xml").Root.Elements();
+            foreach (var element in fromXML)
+            {
+                Console.WriteLine($"{element.Element("Price").Value} {element.Element("Date").Value}");
+            }
+          
         }
     }
     }
