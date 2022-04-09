@@ -1,0 +1,64 @@
+﻿@model IEnumerable<YummyCookBook.Models.Recipes>
+@{
+    ViewData["Title"] = "Recipes List";
+}
+
+<h1>Recipes List</h1>
+
+<div>
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <thead>
+        <tr>
+        <th class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Id)
+        </th>
+        <th class = "col-sm-10">
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Difficulty)
+        </th>
+        <th class = "col-sm-10">
+            @Html.DisplayNameFor(model => model.NumberOfLikes)
+        </th>
+        <th class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Process)
+        </th>
+        <th class = "col-sm-10">
+            @Html.DisplayNameFor(model => model.TipsAndTricks)
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Difficulty)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NumberOfLikes)
+            </td>
+             <td>
+                @Html.DisplayFor(modelItem => item.Process)
+            </td>
+             <td>
+                @Html.DisplayFor(modelItem => item.TipsAndTricks)
+            </td>
+             <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |<br>
+            @Html.ActionLink("Details", "Details", new { id=item.Id })|<br>
+            @Html.ActionLink("Delete", "Delete", new { id=item.Id }) 
+        </td>
+    </tr>
+}
+
+</table>

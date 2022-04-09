@@ -1,0 +1,60 @@
+﻿@model YummyCookBook.Models.Recipes
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Id)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Id)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Difficulty)
+        </dt>
+         <dd>
+            @Html.DisplayFor(model => model.Difficulty)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.NumberOfLikes)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.NumberOfLikes)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Process)
+        </dt>
+          <dd>
+            @Html.DisplayFor(model => model.Process)
+        </dd>
+         <dt>
+           @Html.DisplayNameFor(model => model.TipsAndTricks)
+        </dt>
+        <dd>
+           @Html.DisplayFor(model => model.TipsAndTricks)
+        </dd>
+
+    </dl>
+  
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index") |
+    @Html.ActionLink("Delete", "Delete", new { id = Model.Id })
+
+  
+</p>
