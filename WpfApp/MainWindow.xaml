@@ -1,0 +1,83 @@
+﻿<Window x:Class="WpfApp.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfApp"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*" />
+            <RowDefinition Height="5*" />
+            <RowDefinition Height="1*" />
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="1*" />
+            </Grid.ColumnDefinitions>
+            <Grid Grid.Column="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="6*" />
+                    <RowDefinition Height="1*" />
+                </Grid.RowDefinitions>
+                <ListBox x:Name="BookList" Grid.Row="0" ScrollViewer.HorizontalScrollBarVisibility="Disabled" HorizontalContentAlignment="Stretch">
+                    <ListBox.ItemTemplate >
+                        <DataTemplate>
+                            <Grid >
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="5*"/>
+                                    <ColumnDefinition Width="5*"/>
+                                    <ColumnDefinition Width="5*"/>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Grid.Column="0" Text="{Binding Id}" HorizontalAlignment="Center" VerticalAlignment="Center" Width="Auto"/>
+                                <TextBlock Grid.Column="1" Text="{Binding Title}" HorizontalAlignment="Left" VerticalAlignment="Center" Width="Auto"/>
+                                <TextBlock Grid.Column="2" Text="{Binding IsRead}" HorizontalAlignment="Center" VerticalAlignment="Center" Width="Auto"/>
+                            </Grid>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+                <Border Grid.Row="1" >
+                    <Button Click="Button_Click_1" Margin="10,10,260,0">Add</Button>
+                </Border>
+            </Grid>
+            <Grid Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*" />
+                    <RowDefinition Height="1*" />
+                    <RowDefinition Height="1*" />
+                    <RowDefinition Height="1*" />
+                    <RowDefinition Height="1*" />
+                    <RowDefinition Height="1*" />
+                    <RowDefinition Height="1*" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="5*"/>
+                </Grid.ColumnDefinitions>
+                <Label Grid.Column="0" Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Center">ID</Label>
+                <TextBlock Grid.Column="1" Grid.Row="0" Text="{Binding ElementName=BookList, Path=SelectedItem.Id}" HorizontalAlignment="Left" VerticalAlignment="Center" Width="Auto"/>
+                <Label Grid.Column="0" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Center">Title</Label>
+                <TextBox Name="textBoxName" Grid.Column="1" Grid.Row="1" Text="{Binding ElementName=BookList, Path=SelectedItem.Title}" HorizontalAlignment="Left" VerticalAlignment="Center"  Width="200"/>
+                <Label Grid.Column="0" Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Center">Author</Label>
+                <TextBox Name="textBoxAuthor" Grid.Column="1" Grid.Row="2" Text="{Binding ElementName=BookList, Path=SelectedItem.Author}" HorizontalAlignment="Left" VerticalAlignment="Center"  Width="200"/>
+                <Label Grid.Column="0" Grid.Row="3" HorizontalAlignment="Left" VerticalAlignment="Center">Year</Label>
+                <TextBox Name="textBoxYear" Grid.Column="1" Grid.Row="3" Text="{Binding ElementName=BookList, Path=SelectedItem.Year}" HorizontalAlignment="Left" VerticalAlignment="Center"  Width="200"/>
+                <CheckBox Name="checkBoxIsRead" Grid.Column="1" Grid.Row="4" HorizontalAlignment="Stretch" VerticalAlignment="Center" IsChecked="{Binding ElementName=BookList, Path=SelectedItem.IsRead}">isRead</CheckBox>
+                <Label Grid.Column="0" Grid.Row="5" HorizontalAlignment="Left" VerticalAlignment="Center">Format</Label>
+                <TextBox Name="textBoxFormat" Grid.Column="1" Grid.Row="5" Text="{Binding ElementName=BookList, Path=SelectedItem.Format}" HorizontalAlignment="Left" VerticalAlignment="Center"  Width="200"/>
+                <Border Grid.Column="1"  Grid.Row="6" >
+                    <Button Click="Button_Click" Margin="139,10,10,0">Delete
+                    </Button>
+                </Border>
+            </Grid>
+
+        </Grid>
+        <Border Grid.Row="0" Margin="0,-5,0,5" >
+            <Rectangle x:Name="rectangle" Margin="0,0,598,0"/>
+        </Border>
+        <Border Grid.Row="1" />
+        <Border Grid.Row="2" />
+    </Grid>
+</Window>
