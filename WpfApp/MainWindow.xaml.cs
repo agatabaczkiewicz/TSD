@@ -31,7 +31,7 @@ namespace WpfApp
         }
 
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void Button_Click_Delete(object sender, RoutedEventArgs e)
         {
             MessageBoxResult messageBoxResult = System.Windows.MessageBox.Show("Are you sure?", "Delete Confirmation", System.Windows.MessageBoxButton.YesNo);
             if (messageBoxResult == MessageBoxResult.Yes)
@@ -48,15 +48,52 @@ namespace WpfApp
         }
         
 
-        private void Button_Click_1(object sender, RoutedEventArgs e)
+        private void Button_Click_Add(object sender, RoutedEventArgs e)
         {
-            Book book = BookList.SelectedItem as Book;
-            bookList.Add(new Book(1){
-                Title = book.Title,
-                Author = book.Author,
-                Year = 555,
-                IsRead = true,
-                Format = BookFormat.PaperBack });
+            if (this.BookList.SelectedIndex != -1)
+            {
+                this.BookList.UnselectAll();
+                this.Selected.Visibility = Visibility.Hidden;
+                this.Empty.Visibility = Visibility.Visible;
+            }
+            else if (this.Empty.Visibility == Visibility.Visible)
+            {
+                bool Readed = false;
+                if (this.IsRead.IsChecked == true)
+                    Readed = true;
+
+                bookList.Add(new Book(1)
+                {
+                    Author = this.Author.Text,
+                    Format = BookFormat.EBook,
+                    IsRead = Readed,
+                    Title = this.Title.Text,
+                    Year = int.Parse(this.Year.Text)
+                }); 
+              
+                    this.Author.Clear();
+                    this.Format.Clear();
+                this.IsRead.IsChecked = false;
+                    this.Title.Clear();
+                    this.Year.Clear();
+                    this.BookList.Items.Refresh();
+                
+            }
         }
+
+        public void SelectBook(object sender, MouseButtonEventArgs e)
+        {
+            if (e.ClickCount == 1 && Keyboard.Modifiers == ModifierKeys.Control)
+            {
+                this.Selected.Visibility = Visibility.Hidden;
+                this.Empty.Visibility = Visibility.Visible;
+            }
+            if (e.ClickCount == 1 && (Keyboard.Modifiers & ModifierKeys.Control) == 0)
+            {
+                this.Empty.Visibility = Visibility.Hidden;
+                this.Selected.Visibility = Visibility.Visible;
+            }
+        }
+
     }
 }
