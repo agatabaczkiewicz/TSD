@@ -9,6 +9,7 @@
 </template>
 
 <script>
+import { v4 as uuid4 } from 'uuid'
 export default {
   name: "AddTask",
   data() {
@@ -20,7 +21,7 @@ export default {
     addNewTaskSubmit() {
         if(this.newTodoItem !== '') {
           this.$store.commit('addTodo', {
-            id:0,
+            id: uuid4(),
             name: this.newTodoItem,
             completed: false
           })

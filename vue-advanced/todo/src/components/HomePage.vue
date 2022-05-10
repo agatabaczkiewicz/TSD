@@ -4,8 +4,8 @@
       <div id="todo-list">
         <ul class="list-group" v-for="n in todos" :key="n.id">
           <li class="list-group-item" :data-status="n.completed">
-            <input type="checkbox" :data-id="n.id" :id="n.id"  :checked="n.completed"> <label :data-id="n.id" :for="n.id">{{ n.name }}</label>
-            <button type="button" class="ms-3 btn btn-primary" @click="detailsClick">detail</button>
+            <input type="checkbox" @click="updateTodo" :data-id="n.id" :id="n.id"  :checked="n.completed"> <label :data-id="n.id" :for="n.id">{{ n.name }}</label>
+            <button type="button"  :data-id="n.id" class="ms-3 btn btn-primary" @click="detailsClick">detail</button>
             <!--            <div class="delete-item" @click="deleteItem" :data-id="n.id">Delete</div>-->
 <!--            <div class="archive-item" v-if="n.location !== 'archive'" @click="archiveItem" :data-id="n.id">Archive</div>-->
           </li>
@@ -14,7 +14,7 @@
         </div>
     <button type="button" class="btn btn-primary" @click="addNewTaskClick">+Add new task</button>
       </div>
-
+  <router-view :key="$route.path"></router-view>
 </template>
 
 <script>
@@ -35,14 +35,19 @@ export default {
 
   methods: {
     addNewTaskClick(){
-      this.$router.push('add')
+      this.$router.push('/add')
     },
-    detailsClick(){
-      const id = 'eduardo'
-// we can manually build the url but we will have to handle the encoding ourselves
-
-      this.$router.push(`/detail/${id}`)
-    }
+    detailsClick: function(e){
+      const id = e.currentTarget.getAttribute('data-id');
+     this.$router.push(`/detail/${id}`)
+    },
+    updateTodo: function(e) {
+      let newStatus = e.currentTarget.parentElement.getAttribute('data-status') == "true" ? false : true;
+      this.$store.commit('updateTodo', {
+        id: e.currentTarget.getAttribute('data-id'),
+        completed: newStatus
+      })
+    },
   }
 }
 </script>

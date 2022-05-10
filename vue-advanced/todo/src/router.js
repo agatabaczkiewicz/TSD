@@ -10,18 +10,23 @@ const routes = [
     {
         path: "/",
         name: "home",
-        component: HomePage
+        component: HomePage,
+        children: [{
+            path: '/detail/:id',
+            name: 'DetailTask',
+            component: DetailsTask
+        }]
     },
     {
         path: "/add",
         name: "AddTask",
         component: AddTask
     },
-    {
-        path: "/detail/:id",
-        name: "DetailTask",
-        component: DetailsTask
-    },
+    // {
+    //     path: "/detail/:id",
+    //     name: "DetailTask",
+    //     component: DetailsTask
+    // },
 
 ];
 

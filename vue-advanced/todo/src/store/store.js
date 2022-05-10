@@ -14,6 +14,12 @@ export const store = createStore({
         todoList (state) {
 
             return state.todoList;
+        },
+        getTask: (state) => (id) =>{
+            let findEl = state.todoList.find((x) => x.id == id);
+
+
+            return findEl
         }
     },
     mutations: {
@@ -25,6 +31,23 @@ export const store = createStore({
                     completed: false,
                 })
             }
-        }
-    }
+        },
+        updateTodo (state, todoItem) {
+            let id = todoItem.id;
+            let completed = todoItem.completed;
+            let name = todoItem.name;
+            let findEl = state.todoList.find((x) => x.id == id);
+            if(findEl.id != null) {
+                if(completed !== undefined) {
+                    findEl.completed = completed;
+                }
+                if(name !== undefined) {
+                    findEl.name = name;
+                }
+            }
+            else {
+                console.log(`To Do List Item ${id} couldn't be found`);
+            }
+        },
+         }
 });
