@@ -1,0 +1,60 @@
+.notes {
+  margin: 0 0 2em 0;
+  list-style-type: none;
+  padding: 0;
+  width: 30em;
+
+}
+
+.notes li {
+  display: flex;
+}
+
+.notes button {
+  flex: 1;
+  cursor: pointer;
+  position: relative;
+  background-color: #EEE;
+  margin: .5em;
+  border-radius: 4px;
+  display: flex;
+  //align-items: stretch;
+}
+
+.notes button:hover {
+  color: #2c3a41;
+  background-color: #e6e6e6;
+  left: .1em;
+}
+
+.notes button:active {
+  background-color: #525252;
+  color: #fafafa;
+}
+
+.notes button.selected {
+  background-color: black;
+  color: white;
+}
+
+.notes button.selected:hover {
+  background-color: #505050;
+  color: white;
+}
+
+.notes button.selected:active {
+  background-color: black;
+  color: white;
+}
+
+.notes .badge {
+  display: inline-block;
+  color: white;
+  background-color: #405061;
+  //margin-right: .8em;
+  border-radius: 4px 0 0 4px;
+}
+
+.notes .name {
+  align-self: center;
+}

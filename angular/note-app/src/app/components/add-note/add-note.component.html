@@ -1,0 +1,12 @@
+<h2>Add new Note</h2>
+<div class="link">
+  <a routerLink="/notes">See the list</a>
+</div>
+<div class="cheap-form">
+  <label for="note-date">Data </label><br>
+<input id="note-date" [(ngModel)]="noteDate" type="date" ></div>
+<div class="cheap-form">
+  <label for="note-text">Note </label><br>
+<textarea id="note-text" [(ngModel)]="noteText" ></textarea><br>
+  <button (click)="addNoteClick()">Add</button>
+</div>

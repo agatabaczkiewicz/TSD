@@ -1,0 +1,12 @@
+<h2>My Notes List</h2>
+<div class="link">
+  <a routerLink="/add">Add new note</a>
+</div>
+<ul class="notes">
+  <li *ngFor="let note of notes">
+    <button  type="button" >
+      <span class="badge">{{note.date}}</span>
+      <span class="name">{{note.note}}</span>
+    </button>
+  </li>
+</ul>
